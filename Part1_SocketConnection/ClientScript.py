@@ -14,9 +14,18 @@ PORT = 5555      # Port to connect to. Must match the port that the server is li
 ADDRESS = (HOST, PORT) #Combining to make it easier. 
 s= socket.socket(socket.AF_INET, socket.SOCK_STREAM) # leaving () blank inside will input the default, which is socket.socket(socket.AF_INET, socket.SOCK_STREAM) which is IPV4 and TCP.
 print('Socket created. IPV4, TCP')
-#start the connection. Dial the phone number listed above.
-s.connect(ADDRESS)
-print(f'Connected to server on {HOST}:{PORT}')
+
+#Error handling. If the server is not listening, lets make the client print a message and exit without crashing.
+# Try to connect to the server. except if it doesnt do this instead.
+try:
+    
+    #start the connection. Dial the phone number listed above.
+    s.connect(ADDRESS)
+    print(f'Connected to server on {HOST}:{PORT}')
+
+except:
+    print(f'Failed to connect to server on {HOST}:{PORT}. Nothing heard. Goodbye!')
+    exit()
 
 # Send a message. lets define the message, then encode it, then send it.
 message = 'I have got a message for you, Bud.'
